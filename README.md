@@ -1,1 +1,8 @@
 # API DOCUMENTATION
+
+
+
+
+
+
+### Error Codes
