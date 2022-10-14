@@ -11,7 +11,7 @@ POST **/api/houses**
 * **address** - required dictionary
   * address.**line_1** - required string
     * Address line 1 (e.g., street, PO Box, or company name).
-  * address.**line_2** - required string
+  * address.**line_2** - optional string
     * Address line 2 (e.g., apartment, suite, unit, or building).
   * address.**city** - required string
     * City (ex. Denver)
@@ -21,8 +21,8 @@ POST **/api/houses**
     * ZIP
 * **sqft** - required int
   * House's square feet
-* **scheduled_time** - required datetime
-  * The listing schedule date
+* **scheduled_time** - required timestamp
+  * The listing schedule date. A UTC timestamp 
 * **realtor_id** - required string(ObjectId)
   * Realtor id in the walkthrough system. A 12-byte Field Of BSON type
 * **product_type** - required enum
@@ -31,12 +31,49 @@ POST **/api/houses**
     * photography_only
     * matterport_only
     * aerial_only
+* **addons** - optional list of string
+  * List of addons. Possible value are:
+  * zillow_3d
+  * aerial_addon
+  * twilight
+  * floor_plans
+  * custom_domain
 
 #### Response
 ```
 {
-    "address": null
+    "id": null,
+    "realtor_id": "",
+    "created_date": "",
+
 }
+```
+
+#### Sample Request
+```
+curl --location --request POST 'https://getawalkthrough.com/api/listing' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "address":{
+      "line_1":"2911 Walnut Street",
+      "line_2":"",
+      "city":"Denver",
+      "state":"CO",
+      "zip": 80205
+   },
+   "sqft":2000,
+   "scheduled_time":"2022-05-20T14:00:00",
+   "realtor_id": "62337c91bbcada24cfedb807",
+   "product_type":"photography_package",
+   "addons": [
+      "zillow_3d",
+      "aerial_addon",
+      "twilight",
+      "floor_plans",
+      "custom_domain"
+   ]
+}
+'
 ```
 
 
@@ -54,9 +91,19 @@ GET /api/houses/<house_id>
 }
 ```
 
+## Success Response
+* **status** - string
+  * success
+* **data** - dictionary 
+  * Dictionary
+
 ## Error Response
-```
-```
+* **status** - string
+  * error
+* **code** - string
+  * The error's code if response's status is error. See Error codes below
+* **message** - string
+  * The error message
 
 ## Error Codes
 * **invalid_method** - 400
