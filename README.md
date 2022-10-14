@@ -84,7 +84,19 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 * **house_id** - required string(ObjectId)
   * House id in the walkthrough system. A 12-byte Field Of BSON type
 
-#### Response
+#### Response Data
+* **id** - string
+  * House id in the walkthrough system. A 12-byte Field Of BSON type
+* **status** - string
+  * Listing's status. Possible values are:
+  * Waiting For Processing
+  * Processing
+  * Processed
+  * Scheduled Awaiting Payment
+  * Scanned
+  * Arrived
+  * Ready For Photography
+
 ```
 {
     "id": "",
