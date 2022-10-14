@@ -5,7 +5,7 @@
 * GET /api/houses/<house_id>
 
 ## Create a listing
-POST **/api/houses**
+*POST **/api/houses***
 
 #### Parameters
 * **address** - required dictionary
@@ -22,7 +22,7 @@ POST **/api/houses**
 * **sqft** - required int
   * House's square feet
 * **scheduled_time** - required timestamp
-  * The listing schedule date. A UTC timestamp 
+  * The listing schedule date. A UTC timestamp
 * **realtor_id** - required string(ObjectId)
   * Realtor id in the walkthrough system. A 12-byte Field Of BSON type
 * **product_type** - required enum
@@ -32,7 +32,7 @@ POST **/api/houses**
     * matterport_only
     * aerial_only
 * **addons** - optional list of string
-  * List of addons. Possible value are:
+  * List of addons. Possible values are:
   * zillow_3d
   * aerial_addon
   * twilight
@@ -45,7 +45,7 @@ POST **/api/houses**
     "id": null,
     "realtor_id": "",
     "created_date": "",
-
+    "status: "",
 }
 ```
 
@@ -78,7 +78,7 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 
 
 ## Get listing
-GET /api/houses/<house_id>
+*GET **/api/houses/house_id***
 
 #### Parameters
 * **house_id** - required string(ObjectId)
@@ -87,7 +87,9 @@ GET /api/houses/<house_id>
 #### Response
 ```
 {
-    "address": null
+    "id": "",
+    "": "", 
+    "full_address": null
 }
 ```
 
