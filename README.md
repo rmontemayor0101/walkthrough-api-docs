@@ -1,4 +1,4 @@
-# API DOCUMENTATION
+# WALKTHROUGH API DOCUMENTATION
 
 ## Endpoints
 * POST /api/houses
