@@ -107,12 +107,15 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 ```
 
 ---
+
 ## Success Response
 * **status** - string
   * success
 * **data** - dictionary 
   * Dictionary
+
 ---
+
 ## Error Response
 * **status** - string
   * error
@@ -120,7 +123,9 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
   * The error's code if response's status is error. See Error codes below
 * **message** - string
   * The error message
+
 ---
+
 ## Error Codes
 * **invalid_method** - 400
   * This action can only be taken in valid format.
