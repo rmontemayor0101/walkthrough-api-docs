@@ -52,7 +52,7 @@
 
 #### Sample Request
 ```bash
-curl --location --request POST 'https://getawalkthrough.com/api/listing' \
+curl --location --request POST 'https://getawalkthrough.com/api/houses' \
 --header 'Content-Type: application/json' \
 --header 'api-key: 74de3164-094d-4456-bda8-33a99f896930' \
 --data-raw '{
@@ -97,7 +97,7 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 
 #### Sample Request
 ```bash
-curl --location --request GET 'https://getawalkthrough.com/api/listing/634c6b5dbbcada0fb65187d1' \
+curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbbcada0fb65187d1' \
 --header 'api-key: 74de3164-094d-4456-bda8-33a99f896930'
 ```
 
@@ -117,12 +117,16 @@ curl --location --request GET 'https://getawalkthrough.com/api/listing/634c6b5db
   * Scanned
   * Arrived
   * Ready For Photography
+* **date_created** - timestamp
+  * Date created. A UTC timestamp
 
+#### Sample Response
 ```json
 {
-    "id": "",
-    "realtor_id": "",
-    "status": ""
+    "id": "634dd5847fd93f2263fb05d4",
+    "realtor_id": "624f658c4f73fbde4cbcc73a",
+    "status": "Preparing for Scan",
+    "date_created": 1666066918,
 }
 ```
 
@@ -159,3 +163,7 @@ curl --location --request GET 'https://getawalkthrough.com/api/listing/634c6b5db
   * "Error 404 not found"
 * **sqft_below_zero** - 400
   * "We need you to put in a square footage other than 0. This is how we calculate how long your photography shoot will take, and we don't want to have to leave before we are done because of an incorrect square footage.
+* **invalid_id** - 400
+  * ID is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+* **realtor_not_found** - 404
+  * Error 404 not found
