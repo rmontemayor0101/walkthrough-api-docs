@@ -136,7 +136,7 @@ curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbb
 * **status** - string
   * success
 * **data** - dictionary 
-  * Dictionary
+  * The house object. See reference above
 
 ---
 
