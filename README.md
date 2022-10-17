@@ -4,6 +4,7 @@
 * POST /api/houses
 * GET /api/houses/<house_id>
 
+---
 ## Create a listing
 *POST **/api/houses***
 
@@ -40,7 +41,7 @@
   * custom_domain
 
 #### Response
-```
+```json
 {
     "id": null,
     "realtor_id": "",
@@ -50,7 +51,7 @@
 ```
 
 #### Sample Request
-```
+```bash
 curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -72,10 +73,10 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
       "floor_plans",
       "custom_domain"
    ]
-}
-'
+}'
 ```
 
+---
 
 ## Get listing
 *GET **/api/houses/house_id***
@@ -97,7 +98,7 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
   * Arrived
   * Ready For Photography
 
-```
+```json
 {
     "id": "",
     "": "", 
@@ -105,12 +106,13 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 }
 ```
 
+---
 ## Success Response
 * **status** - string
   * success
 * **data** - dictionary 
   * Dictionary
-
+---
 ## Error Response
 * **status** - string
   * error
@@ -118,7 +120,7 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
   * The error's code if response's status is error. See Error codes below
 * **message** - string
   * The error message
-
+---
 ## Error Codes
 * **invalid_method** - 400
   * This action can only be taken in valid format.
