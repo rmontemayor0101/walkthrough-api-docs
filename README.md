@@ -22,6 +22,8 @@
     * ZIP
 * **sqft** - required int
   * House's square feet
+* **unfinished_sqft** - required int
+  * House's unfinished square feet
 * **scheduled_time** - required timestamp
   * The listing schedule date. A UTC timestamp
 * **realtor_id** - required string(ObjectId)
@@ -43,10 +45,8 @@
 #### Response
 ```json
 {
-    "id": null,
-    "realtor_id": "",
-    "created_date": "",
-    "status: "",
+  "status": "success",
+  "data": {house_object} # See reference below
 }
 ```
 
@@ -54,6 +54,7 @@
 ```bash
 curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 --header 'Content-Type: application/json' \
+--header 'api-key: 74de3164-094d-4456-bda8-33a99f896930' \
 --data-raw '{
    "address":{
       "line_1":"2911 Walnut Street",
@@ -63,7 +64,8 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
       "zip": 80205
    },
    "sqft":2000,
-   "scheduled_time":"2022-05-20T14:00:00",
+   "unfinished_sqft": 0,
+   "scheduled_time": 1666214660,
    "realtor_id": "62337c91bbcada24cfedb807",
    "product_type":"photography_package",
    "addons": [
@@ -79,15 +81,33 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 ---
 
 ## Get listing
-*GET **/api/houses/house_id***
+*GET **/api/houses/<house_id>***
 
 #### Parameters
 * **house_id** - required string(ObjectId)
   * House id in the walkthrough system. A 12-byte Field Of BSON type
 
-#### Response Data
+#### Response
+```json
+{
+  "status": "success",
+  "data": {house_object} # See reference below
+}
+```
+
+#### Sample Request
+```bash
+curl --location --request GET 'https://getawalkthrough.com/api/listing/634c6b5dbbcada0fb65187d1' \
+--header 'api-key: 74de3164-094d-4456-bda8-33a99f896930'
+```
+
+---
+
+## The House Object
 * **id** - string
-  * House id in the walkthrough system. A 12-byte Field Of BSON type
+  * House's id in the walkthrough system.
+* **realtor_id** - string
+  * Realtor's id in the walkthrough system.
 * **status** - string
   * Listing's status. Possible values are:
   * Waiting For Processing
@@ -101,8 +121,8 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
 ```json
 {
     "id": "",
-    "": "", 
-    "full_address": null
+    "realtor_id": "",
+    "status": ""
 }
 ```
 
@@ -135,4 +155,7 @@ curl --location --request POST 'https://getawalkthrough.com/api/listing' \
   * We don't currently serve that zip code. However, we sent a message to our operations team to see if we can make an exception. You can also call support at 303-900-0469.
 * **duplicate_entry** - 400
   * It looks like we're already working on that address with you. Go to your dashboard to view the current status or call support at 303-900-0469.
-* 
+* **not_found** - 404
+  * "Error 404 not found"
+* **sqft_below_zero** - 400
+  * "We need you to put in a square footage other than 0. This is how we calculate how long your photography shoot will take, and we don't want to have to leave before we are done because of an incorrect square footage.
