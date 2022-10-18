@@ -110,13 +110,20 @@ curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbb
   * Realtor's id in the walkthrough system.
 * **status** - string
   * Listing's status. Possible values are:
-  * Waiting For Processing
-  * Processing
-  * Processed
-  * Scheduled Awaiting Payment
-  * Scanned
-  * Arrived
-  * Ready For Photography
+  * **unscheduled**
+    * Needs To Be Scheduled
+    * Need To Know How To Get Access
+    * Scheduled Awaiting Payment
+  * **proofing**
+    * Processed
+  * **completed**
+    * Completed
+  * **scheduled**
+    * Waiting For Processing
+    * Processing
+    * Scanned
+    * Arrived
+    * Ready For Photography
 * **date_created** - timestamp
   * Date created. A UTC timestamp
 
@@ -153,8 +160,8 @@ curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbb
 ## Error Codes
 * **invalid_method** - 400
   * This action can only be taken in valid format.
-* **unauthorized**
-  * Unauthorized - 401
+* **unauthorized** - 401
+  * Unauthorized 
 * **outside_service_area** - 400
   * We don't currently serve that zip code. However, we sent a message to our operations team to see if we can make an exception. You can also call support at 303-900-0469.
 * **duplicate_entry** - 400
