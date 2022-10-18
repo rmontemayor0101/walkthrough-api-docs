@@ -132,7 +132,7 @@ curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbb
 {
     "id": "634dd5847fd93f2263fb05d4",
     "realtor_id": "624f658c4f73fbde4cbcc73a",
-    "status": "Preparing for Scan",
+    "status": "scheduled",
     "date_created": 1666066918,
 }
 ```
