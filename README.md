@@ -27,7 +27,9 @@
 * **scheduled_time** - required timestamp
   * The listing schedule date. A UTC timestamp
 * **realtor_id** - required string(ObjectId)
-  * Realtor id in the walkthrough system. A 12-byte Field Of BSON type
+  * Realtor's id in the walkthrough system. A 12-byte Field Of BSON type
+* **photographer_id** - required string(ObjectId)
+  * Photographer's id in the walkthrough system. A 12-byte Field Of BSON type
 * **product_type** - required enum
   * The listing's main product. Possible values are:
     * photography_package
@@ -67,6 +69,7 @@ curl --location --request POST 'https://getawalkthrough.com/api/houses' \
    "unfinished_sqft": 0,
    "scheduled_time": 1666214660,
    "realtor_id": "62337c91bbcada24cfedb807",
+   "photographer_id": "623b3e15ca9f0f71d0f078aa",
    "product_type":"photography_package",
    "addons": [
       "zillow_3d",
@@ -108,6 +111,8 @@ curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbb
   * House's id in the walkthrough system.
 * **realtor_id** - string
   * Realtor's id in the walkthrough system.
+* **photographer_id** - string
+  * Photographer's id in the walkthrough system.
 * **status** - string
   * Listing's status. Possible values are:
   * **unscheduled**
@@ -126,14 +131,74 @@ curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbb
     * Ready For Photography
 * **date_created** - timestamp
   * Date created. A UTC timestamp
+* **address** - dictionary
+  * address.**line_1** - string
+    * Address line 1 (e.g., street, PO Box, or company name).
+  * address.**line_2** - optional string
+    * Address line 2 (e.g., apartment, suite, unit, or building).
+  * address.**city** - string
+    * City (ex. Denver)
+  * address.**state** - string
+    * [State Abbrevation](https://www.bls.gov/respondents/mwr/electronic-data-interchange/appendix-d-usps-state-abbreviations-and-fips-codes.htm), Postal (ex. CO, AL, AK, AZ)
+  * address.**zip** - int
+    * ZIP
+* **product_type** - string
+  * The listing's main product. Possible values are:
+    * photography_package
+    * photography_only
+    * matterport_only
+    * aerial_only
+* **addons** - list of string
+  * List of addons. Possible values are:
+  * zillow_3d
+  * aerial_addon
+  * twilight
+  * floor_plans
+  * custom_domain
+* **extra_fee**
+* **date_arrived** - timestamp
+  * The timestamp when the photographer arrived
+* **scheduled_time** - timestamp
+  * The scheduled time
+* **finished_time** - timestamp
+  * The timestamp when the photographer finished the photography
+* **dropbox_link** - string
+  * Link of the listing's dropbox folder
+* **upload_link** - string
+  * Link of the listing's dropbox folder
+* **subscription_id** - string
+  * The listing's subscription id from stripe
 
 #### Sample Response
 ```json
 {
     "id": "634dd5847fd93f2263fb05d4",
     "realtor_id": "624f658c4f73fbde4cbcc73a",
+    "photographer_id": "623b3e15ca9f0f71d0f078aa",
     "status": "scheduled",
     "date_created": 1666066918,
+    "address": {
+        "line_1": "2914 Walnut Street",
+        "city": "Denver",
+        "state": "CO",
+        "line_2": "",
+        "zip": "80205"
+    },
+    "product_type": "photography_package",
+    "addons": [
+        "zillow_3d",
+        "aerial_addon",
+        "twilight",
+        "floor_plans",
+        "custom_domain"
+    ],
+    "extra_fee": 0,
+    "date_arrived": 1666066918,
+    "scheduled_time": 1666236260,
+    "finished_time": 1666236261,
+    "dropbox_link": "https://www.dropbox.com/sh/bhhwl2opxfmna1d/AAADyVTtCFBGDc_4lhREQgvca?dl=0",
+    "upload_link": "https://www.dropbox.com/sh/bhhwl2opxfmna1d/AAADyVTtCFBGDc_4lhREQgvca?dl=0",
+    "subscription_id": "sub_1LpdvwDWQs1LScrY1tgsx9m2",
 }
 ```
 
@@ -170,7 +235,11 @@ curl --location --request GET 'https://getawalkthrough.com/api/houses/634c6b5dbb
   * "Error 404 not found"
 * **sqft_below_zero** - 400
   * "We need you to put in a square footage other than 0. This is how we calculate how long your photography shoot will take, and we don't want to have to leave before we are done because of an incorrect square footage.
-* **invalid_id** - 400
-  * ID is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+* **realtor_invalid_id** - 400
+  * Realtor's ID is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
 * **realtor_not_found** - 404
+  * Error 404 not found
+* **photographer_invalid_id** - 400
+  * Photographer's ID is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+* **photographer_not_found** - 404
   * Error 404 not found
